@@ -18,6 +18,8 @@ using UdemyDatingApp.API.Interfaces;
 using UdemyDatingApp.API.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using UdemyDatingApp.API.Extensions;
+using UdemyDatingApp.API.Middleware;
 
 namespace UdemyDatingApp
 {
@@ -35,38 +37,21 @@ namespace UdemyDatingApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ITokenService,TokenService>();
-            services.AddDbContext<DataContext>(options =>
-            {
-
-                options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
-               
-
-            });
+            services.AddApplicationServices(_config);
             services.AddControllers();
             services.AddCors();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ValidateIssuerSigningKey = true ,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["TokenKey"]))
-
-                    };
-                });
+            services.AddIdentityServices(_config);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            /*  if (env.IsDevelopment())
+              {
+                  app.UseDeveloperExceptionPage();
+              }*/
 
+            app.UseMiddleware<MiddlewareException>();
             app.UseHttpsRedirection();
 
             app.UseRouting();
