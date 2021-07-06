@@ -15,7 +15,9 @@ using System.Threading.Tasks;
 using UdemyDatingApp.API.Data;
 using UdemyDatingApp.API.DTOs;
 using UdemyDatingApp.API.Interfaces;
+using UdemyDatingApp.API.Services;
 using UdemyDatingApp.Entities;
+
 
 
 namespace UdemyDatingApp.API.Controllers
@@ -33,7 +35,7 @@ namespace UdemyDatingApp.API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserTokenDTO>> Register(UserDTO request)
         {
-
+            
             if (await UserExists(request.Username.ToLower())) { return BadRequest("Username Taken"); }
             using var hmac = new HMACSHA256();
             var user = new User

@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 using UdemyDatingApp.API.Data;
 using UdemyDatingApp.Entities;
 
+
 namespace UdemyDatingApp.API.Controllers
 {
-
+    [Authorize]
     public class UsersController : BaseApiController
     {
         private readonly DataContext _context;
@@ -20,14 +21,15 @@ namespace UdemyDatingApp.API.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<ActionResult<List<User>>> FetchUsers()
         {
+           
             return await _context.Users.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<User>> FetchUserById(int id)
         {
     
