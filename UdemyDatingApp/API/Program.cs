@@ -9,10 +9,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using UdemyDatingApp.AdvancedTechniques.Asynchronous_Programming;
+using UdemyDatingApp.AdvancedTechniques.DocumentManipulation;
+using UdemyDatingApp.AdvancedTechniques.Dynamics;
+using UdemyDatingApp.AdvancedTechniques.ExceptionHandling;
 using UdemyDatingApp.AdvancedTechniques.Extensions;
 using UdemyDatingApp.API.Data;
 using UdemyDatingApp.EventNotifier;
-using UdemyDatingApp.Generics;
+
 
 namespace UdemyDatingApp
 {
@@ -21,6 +25,17 @@ namespace UdemyDatingApp
 
         public static async Task Main(string[] args)
         {
+            var docManip = new PdfMainClass();
+            docManip.PdfFunctionality();
+
+            var mAsync = new MainAsync();
+            mAsync.MainFunctionality();
+
+            var mException = new SimulateMainClass();
+            mException.SecondaryFunctionality();
+            var mDynamics = new MainClassSimulation();
+            mDynamics.MainFunctionality();
+
             var m = new Main();
             m.MainFunctionality();
             //
@@ -29,8 +44,8 @@ namespace UdemyDatingApp
             mainFUnc.MainFunctionality();
 
 
-            var main = new MainClassSimulation();
-            main.MainSimulation();
+            //var main = new MainClassSimulation();
+            //main.MainSimulation();
             //testing Advanced C# Course
             //
 

@@ -9,5 +9,7 @@ namespace UdemyDatingApp.Entities
     {
         public string Name { get; set; }
         public string Occupation { get; set; }
+
+        public int Id { get; set; }
     }
 }
